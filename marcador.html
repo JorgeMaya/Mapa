@@ -1,0 +1,80 @@
+<html>
+
+    <head>
+    <title>Mapa</title>
+        <meta charset="utf-8">
+        <link href="estilo.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <script type="text/javascript" src="funciones.js"></script>
+    </head>  
+    
+    <body>
+        
+            <h1>Añadir Marcador</h1>
+        <div id="mapaM">
+        </div>
+        
+        <div id="anadirM">
+            <input type="text" id="nombreM" placeholder="Nombre"><br>
+            <textarea id="descripcionM" placeholder="Descripción"></textarea><br>
+            <select id="tipoM">
+                <option>Pisto</option>
+                <option>Comida</option>
+                <option>Cine</option>
+                <option>Tacos</option>
+                <option>Gym</option>
+                <option>Escuela</option>
+                <option>Trabajo</option>
+                <option>Hotel/Motel</option>
+                <option>Otro</option>
+            </select><br>
+            Presupuesto $<input type="number" id="presupuestoM" placeholder="0" step="50" min="0"><br>
+            Horario <input type="time" id="horarioM">-<input type="time" id="horarioM"><br>
+            
+        </div>
+        <button id="btnGuardarM">GUARDAR</button>
+        
+    </body>
+    
+    <script>
+        var map;
+        
+        window.addEventListener('load', localizar, true);
+        
+        function localizar(){
+        
+            navigator.geolocation.getCurrentPosition(ubicacion);
+        }
+        
+        function ubicacion(datos){
+            longitud = datos.coords.longitude;
+            latitud = datos.coords.latitude;
+            initMap();
+        }
+        
+        function initMap() {
+            
+          map = new google.maps.Map(document.getElementById('mapaM'), {
+            center: {lat: latitud, lng: longitud},
+            zoom: 18,
+            mapTypeControl: false
+          });
+            
+            var marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: {lat: latitud, lng: longitud},
+                map: map,
+                icon:'marcador.png',
+                draggable:true,
+                title: 'Aqui estas',
+              });
+            
+        }
+            
+    </script>
+    
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK5tn8ht33v_IZZkG9E_W_bmUlw474nMY">
+    </script>
+
+</html>

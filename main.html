@@ -1,0 +1,71 @@
+<html>
+
+    <head>
+    <title>Mapa</title>
+        <meta charset="utf-8">
+        <link href="estilo.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <script type="text/javascript" src="funciones.js"></script>
+    </head>  
+    
+    <body>
+        
+        <div id="menu">
+            
+        </div>
+        
+        <div id="boton-menu">
+            <button></button>
+        </div>
+        
+        <div id="mapa">
+            
+        </div>
+        
+        <div id="botonera">
+            <button>Guardar Lugar</button>
+        </div>
+        
+    </body>
+    
+    <script>
+        var map;
+        
+        window.addEventListener('load', localizar, true);
+        
+        function localizar(){
+        
+            navigator.geolocation.getCurrentPosition(ubicacion);
+        }
+        
+        function ubicacion(datos){
+            longitud = datos.coords.longitude;
+            latitud = datos.coords.latitude;
+            initMap();
+        }
+        
+        function initMap() {
+            
+          map = new google.maps.Map(document.getElementById('mapa'), {
+            center: {lat: latitud, lng: longitud},
+            zoom: 18
+          });
+            
+            var marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: {lat: latitud, lng: longitud},
+                map: map,
+                icon:'marcador.png',
+                draggable:true,
+                title: 'Aqui estas'
+              });
+            
+        }
+            
+    </script>
+    
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK5tn8ht33v_IZZkG9E_W_bmUlw474nMY">
+    </script>
+
+</html>
